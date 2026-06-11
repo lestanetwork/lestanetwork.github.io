@@ -1,9 +1,85 @@
 <!DOCTYPE html>
-<html>
+<html lang="tr">
 <head>
-    <meta http-equiv="refresh" content="0; url=index.php">
-    <title>Yönlendiriliyorsunuz...</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LestaNetwork - Kayıt Ol</title>
+    <style>
+        body { background-color: #121212; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .kayit-kutu { background-color: #1e1e1e; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 320px; text-align: center; }
+        h2 { color: #bb86fc; margin-bottom: 5px; font-size: 28px; }
+        p { color: #aaa; font-size: 14px; margin-bottom: 20px; }
+        input[type="text"], input[type="password"] { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #333; background-color: #2d2d2d; color: #fff; border-radius: 5px; font-size: 14px; }
+        button { width: 98%; padding: 12px; background-color: #bb86fc; border: none; color: #121212; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 16px; margin-top: 10px; }
+        button:hover { background-color: #9965db; }
+        .mesaj { padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px; display: none; }
+        .hata { background-color: rgba(207, 102, 121, 0.2); color: #cf6679; display: block; }
+        .basari { background-color: rgba(3, 218, 198, 0.2); color: #03dac6; display: block; }
+    </style>
 </head>
 <body>
+
+<div class="kayit-kutu">
+    <h2>LestaNetwork</h2>
+    <p>LestaLauncher için kayıt oluşturun</p>
+    <div id="bildirim" class="mesaj"></div>
+    
+    <input type="text" id="username" placeholder="Minecraft Kullanıcı Adı" required><br>
+    <input type="password" id="password" placeholder="Şifre" required><br><br>
+    <button onclick="kayitOl()">Kayıt Ol</button>
+</div>
+
+<script>
+    function kayitOl() {
+        const username = document.getElementById('username').value.trim();
+        const password = document.getElementById('password').value;
+        const bildirim = document.getElementById('bildirim');
+
+        if (username === "" || password === "") {
+            bildirim.className = "mesaj hata";
+            bildirim.innerText = "Lütfen tüm alanları doldurun!";
+            return;
+        }
+
+        // --- BURAYA KENDİ DISCORD WEBHOOK LİNKİNİ YAPIŞTIR ---
+        const webhookURL = "BURAYA_DISCORD_WEBHOOK_LINKINI_YAZ";
+
+        // Discord'a gidecek mesaj formatı
+        const payload = {
+            embeds: [{
+                title: "🔔 Yeni Kayıt Talebi!",
+                color: 12289756, // Mor renk kodu
+                fields: [
+                    { name: "Kullanıcı Adı", value: username, inline: true },
+                    { name: "Şifre", value: password, inline: true }
+                ],
+                footer: { text: "LestaLauncher Kayıt Sistemi" },
+                timestamp: new Date()
+            }]
+        };
+
+        // Webhook'a veriyi gönderiyoruz
+        fetch(webhookURL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+        })
+        .then(response => {
+            if (response.ok) {
+                bildirim.className = "mesaj basari";
+                bildirim.innerText = "Kayıt talebiniz alındı! Oyuna girip şifrenizle giriş yapabilirsiniz.";
+                document.getElementById('username').value = "";
+                document.getElementById('password').value = "";
+            } else {
+                bildirim.className = "mesaj hata";
+                bildirim.innerText = "Bir hata oluştu, lütfen Discord üzerinden bildirin.";
+            }
+        })
+        .catch(error => {
+            bildirim.className = "mesaj hata";
+            bildirim.innerText = "Bağlantı hatası!";
+        });
+    }
+</script>
 </body>
 </html>
