@@ -3,83 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LestaNetwork - Kayıt Ol</title>
+    <title>LestaNetwork - Resmi Web Sitesi</title>
     <style>
-        body { background-color: #121212; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .kayit-kutu { background-color: #1e1e1e; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); width: 320px; text-align: center; }
-        h2 { color: #bb86fc; margin-bottom: 5px; font-size: 28px; }
-        p { color: #aaa; font-size: 14px; margin-bottom: 20px; }
-        input[type="text"], input[type="password"] { width: 90%; padding: 12px; margin: 10px 0; border: 1px solid #333; background-color: #2d2d2d; color: #fff; border-radius: 5px; font-size: 14px; }
-        button { width: 98%; padding: 12px; background-color: #bb86fc; border: none; color: #121212; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; font-size: 16px; margin-top: 10px; }
-        button:hover { background-color: #9965db; }
-        .mesaj { padding: 10px; border-radius: 5px; margin-bottom: 15px; font-size: 14px; display: none; }
-        .hata { background-color: rgba(207, 102, 121, 0.2); color: #cf6679; display: block; }
-        .basari { background-color: rgba(3, 218, 198, 0.2); color: #03dac6; display: block; }
+        /* Genel Tema Ayarları */
+        * { margin: 0; padding: 0; box-sizing: border-radius; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0f0f12; color: #e1e1e6; display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        
+        /* Ana Kutu Tasarımı */
+        .container { background-color: #16161a; border: 1px solid #24242b; padding: 40px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); width: 100%; max-width: 450px; text-align: center; }
+        
+        /* Başlıklar ve Yazılar */
+        h1 { color: #bb86fc; font-size: 36px; margin-bottom: 5px; letter-spacing: 1px; }
+        .subtitle { color: #8a8a93; font-size: 14px; margin-bottom: 30px; }
+        
+        /* Sunucu Özellikleri Bölümü */
+        .features { text-align: left; background-color: #1f1f24; padding: 20px; border-radius: 12px; margin-bottom: 30px; border-left: 4px solid #bb86fc; }
+        .features h3 { color: #fff; margin-bottom: 10px; font-size: 16px; }
+        .features ul { list-style: none; }
+        .features ul li { font-size: 14px; color: #c4c4cc; margin: 8px 0; display: flex; align-items: center; }
+        .features ul li::before { content: "•"; color: #bb86fc; font-weight: bold; display: inline-block; width: 1em; margin-left: 5px; }
+
+        /* Buton Tasarımları */
+        .btn { display: block; width: 100%; padding: 14px; margin: 12px 0; border: none; border-radius: 8px; font-size: 16px; font-weight: bold; text-decoration: none; cursor: pointer; transition: all 0.3s ease; text-align: center; box-sizing: border-box; }
+        
+        .btn-download { background-color: #bb86fc; color: #121214; }
+        .btn-download:hover { background-color: #a370db; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(187, 134, 252, 0.3); }
+        
+        .btn-discord { background-color: #5865F2; color: #fff; }
+        .btn-discord:hover { background-color: #4752C4; transform: translateY(-2px); box-shadow: 0 5px 15px rgba(88, 101, 242, 0.3); }
+
+        /* Alt Bilgi */
+        .footer { margin-top: 25px; color: #626269; font-size: 12px; }
     </style>
 </head>
 <body>
 
-<div class="kayit-kutu">
-    <h2>LestaNetwork</h2>
-    <p>LestaLauncher için kayıt oluşturun</p>
-    <div id="bildirim" class="mesaj"></div>
+<div class="container">
+    <h1>LestaNetwork</h1>
+    <div class="subtitle">LestaLauncher ile Kesintisiz Minecraft Deneyimi</div>
     
-    <input type="text" id="username" placeholder="Minecraft Kullanıcı Adı" required><br>
-    <input type="password" id="password" placeholder="Şifre" required><br><br>
-    <button onclick="kayitOl()">Kayıt Ol</button>
+    <div class="features">
+        <h3>🚀 Sunucu Özellikleri:</h3>
+        <ul>
+            <li>Sürüm: 1.21.10 (Fabric Tabanlı)</li>
+            <li>Gelişmiş Simple Voice Chat (Sesli Sohbet)</li>
+            <li>Chat Heads (Chatte Oyuncu Kafaları) Ekli!</li>
+            <li>Hile Korumalı Özel LestaLauncher Sistemi</li>
+        </ul>
+    </div>
+
+    <a href="https://github.com/KULLANICI_ADIN/REPOM/raw/main/LestaLauncher.exe" class="btn btn-download">📥 LestaLauncher İndir (.exe)</a>
+    <a href="https://discord.gg/DAVET_KODUN" target="_blank" class="btn btn-discord">💬 Discord Sunucumuza Katıl</a>
+
+    <div class="footer">
+        © 2026 LestaNetwork. Tüm hakları saklıdır.
+    </div>
 </div>
 
-<script>
-    function kayitOl() {
-        const username = document.getElementById('username').value.trim();
-        const password = document.getElementById('password').value;
-        const bildirim = document.getElementById('bildirim');
-
-        if (username === "" || password === "") {
-            bildirim.className = "mesaj hata";
-            bildirim.innerText = "Lütfen tüm alanları doldurun!";
-            return;
-        }
-
-        // --- BURAYA KENDİ DISCORD WEBHOOK LİNKİNİ YAPIŞTIR ---
-        const webhookURL = "https://discord.com/api/webhooks/1514528999571722260/8SE2gEvJtG3_7lRfh8Nh6O821Jta3d0ClgrIEKBpHruCYDIB7ZrPe563nmbbnWo5GcgO";
-
-        // Discord'a gidecek mesaj formatı
-        const payload = {
-            embeds: [{
-                title: "🔔 Yeni Kayıt Talebi!",
-                color: 12289756, // Mor renk kodu
-                fields: [
-                    { name: "Kullanıcı Adı", value: username, inline: true },
-                    { name: "Şifre", value: password, inline: true }
-                ],
-                footer: { text: "LestaLauncher Kayıt Sistemi" },
-                timestamp: new Date()
-            }]
-        };
-
-        // Webhook'a veriyi gönderiyoruz
-        fetch(webhookURL, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(payload)
-        })
-        .then(response => {
-            if (response.ok) {
-                bildirim.className = "mesaj basari";
-                bildirim.innerText = "Kayıt talebiniz alındı! Oyuna girip şifrenizle giriş yapabilirsiniz.";
-                document.getElementById('username').value = "";
-                document.getElementById('password').value = "";
-            } else {
-                bildirim.className = "mesaj hata";
-                bildirim.innerText = "Bir hata oluştu, lütfen Discord üzerinden bildirin.";
-            }
-        })
-        .catch(error => {
-            bildirim.className = "mesaj hata";
-            bildirim.innerText = "Bağlantı hatası!";
-        });
-    }
-</script>
 </body>
 </html>
